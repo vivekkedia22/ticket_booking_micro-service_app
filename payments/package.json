@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "bun --watch src/index.ts "
+    "start": "bun --watch src/index.ts ",
+    "test:ci":"jest"
   },
   "jest": {
     "testEnvironment": "node",
