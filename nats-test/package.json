@@ -1,0 +1,19 @@
+{
+  "name": "nats-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "publish": "bun --watch src/publisher.ts",
+    "listen": "bun --watch src/events/ticket-created-listener.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^24.0.13",
+    "bun": "^1.2.18",
+    "nats": "^2.29.3",
+    "typescript": "^5.8.3"
+  }
+}

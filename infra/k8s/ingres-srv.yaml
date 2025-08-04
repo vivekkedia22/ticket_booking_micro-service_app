@@ -1,0 +1,66 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # The name of the ingress resource
+  name: ingress-srv
+  # Annotations are key-value pairs that can be used to store additional information about the resource
+  # In this case, we are telling the nginx ingress controller to use regex to match the paths
+  annotations:
+    # This annotation tells the nginx ingress controller to use regex to match the paths
+    # The value of this annotation is "true", which means that the nginx ingress controller will use regex to match the paths
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  # The ingress class name is the name of the ingress controller that will handle the traffic
+  # In this case, we are using the nginx ingress controller
+  ingressClassName: nginx
+  # The rules section defines the rules for routing traffic to the backend services
+  rules:
+    # The host section defines the host name that the ingress controller will respond to
+    # In this case, we are using the host name "tickets.backend.dev"
+    - host: tickets.dev
+      # The http section defines the http routing rules
+      http:
+        # The paths section defines the paths that the ingress controller will route traffic to
+        paths:
+          # The path section defines the path that the ingress controller will route traffic to
+          # In this case, we are using a regex to match any path that starts with "/api/users/"
+          # The pathType field specifies how the path should be matched
+          # In this case, we are using ImplementationSpecific, which means that the nginx ingress controller will use its own regex engine to match the path
+          - path: /api/users/?(.*)
+            pathType: ImplementationSpecific
+            # The backend section defines the backend service that the ingress controller will route traffic to
+            backend:
+              # The service section defines the name and port of the backend service
+              # In this case, we are using the service named "auth-srv" and port 3000
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+          - path: /api/tickets/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tickets-srv
+                port:
+                  number: 3001
+          - path: /api/orders/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: orders-srv
+                port:
+                  number: 3002
+          - path: /api/payments/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: payments-srv
+                port:
+                  number: 3003
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000

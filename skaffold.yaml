@@ -1,0 +1,68 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+
+# This section is for the k8s manifests
+manifests:
+  rawYaml:
+    - ./infra/k8s/* # This will apply all the k8s manifests in the infra/k8s folder
+      # This will create all the k8s resources such as deployments, services, configmaps, etc.
+      # The k8s resources will be created in the order they are specified in the file
+      # If there is a dependency between resources, it should be specified in the file
+      # For example, a deployment should be specified after the service that it depends on
+
+# This section is for the build
+build:
+  local:
+    push: false # This tells skaffold not to push the image to a registry
+    # This is useful for local development because it allows us to quickly iterate on the code without having to push the image to a registry
+    # Skaffold will build the image using the Dockerfile in the context directory and tag it with the name specified in the artifacts section
+    # The image will be built on the local machine and will not be pushed to a registry
+  artifacts:
+    - image: vivekkedia/auth # This is the name of the image that will be built
+      context: auth # This is the directory that contains the Dockerfile and the code
+      sync:
+        manual:
+          - src: "src/**/*.ts" # This will sync all the ts files in the src folder to the remote container
+            dest: . # This is the destination in the remote container where the files will be synced
+      docker:
+        dockerfile: Dockerfile # This is the Dockerfile that will be used to build the image
+    - image: vivekkedia/tickets
+      context: tickets
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: vivekkedia/orders
+      context: orders
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: vivekkedia/expiration
+      context: expiration
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: vivekkedia/payments
+      context: payments
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile        
+    - image: vivekkedia/client
+      context: client
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile

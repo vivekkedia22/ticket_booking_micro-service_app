@@ -1,0 +1,11 @@
+import { currentUserRouter } from "./current-user";
+import { signInRouter } from "./signin";
+import { signOutRouter } from "./signout";
+import { signUpRouter } from "./signup";
+import { Router } from "express";
+const router = Router();
+router.use(currentUserRouter);
+router.use(signInRouter);
+router.use(signOutRouter);
+router.use(signUpRouter);
+export { router as userRoutes };
