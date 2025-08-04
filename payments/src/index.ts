@@ -7,6 +7,7 @@ import { OrderCreatedListener } from "./events/listeners/order-created-listener"
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
 
 const start = async () => {
+  console.log("pAYMENTS SERVICE IS STARTING UP!!");
   if (!process.env.JWT_KEY || !process.env.MONGO_URI || !process.env.NATS_URL) {
     throw new Error("JWT_KEY or MONGO_URI  or NATS_URL is not defined");
   }
