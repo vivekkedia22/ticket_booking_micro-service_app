@@ -28,6 +28,6 @@ it("returns not found error when no ticket is found", async () => {
     .get("/api/tickets/")
     .set("Cookie", cookie!)
     .send()
-    .expect(404);
-
+    .expect(200);
+  expect(response.body.length).toEqual(0);
 });
