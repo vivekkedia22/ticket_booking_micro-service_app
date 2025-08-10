@@ -37,6 +37,8 @@ router.post(
       throw new BadRequestError(400, "Cannot pay for a cancelled order");
     }
     if (price !== order.price) {
+      console.log("This is the price", order.price);
+      console.log("This is the request price", price);
       throw new BadRequestError(400, "Order price does not match");
     }
 
