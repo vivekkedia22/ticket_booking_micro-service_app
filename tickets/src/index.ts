@@ -62,5 +62,5 @@ const start = async () => {
 start();
 
 app.listen(3001, () => {
-  console.log(`Tickets service is running on port 3001!!`);
+  console.log(`Tickets service is running on port 3001!!!`);
 });
