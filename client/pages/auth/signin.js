@@ -5,7 +5,7 @@ export default () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
-    url: "https://tickets.dev/api/users/signin",
+    url: "http://vivekdevs.site/api/users/signin",
     method: "post",
     body: { email, password },
     onSuccess: () => Router.push("/"),
