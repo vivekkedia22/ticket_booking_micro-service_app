@@ -8,6 +8,9 @@ export default ({ url, method, body, onSuccess }) => {
     try {
       console.log("this is url",url)
       console.log("this is body",body)
+      console.log("this is body",props)
+      console.log("this is body",{...body, ...props})
+
       const response = await axios[method](url, { ...body, ...props });
       if (onSuccess) {
         onSuccess(response.data);
