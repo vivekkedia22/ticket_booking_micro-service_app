@@ -9,7 +9,7 @@ manifests:
       # The k8s resources will be created in the order they are specified in the file
       # If there is a dependency between resources, it should be specified in the file
       # For example, a deployment should be specified after the service that it depends on
-
+    - ./infra/k8s-dev/* 
 # This section is for the build
 build:
   local:
