@@ -9,6 +9,7 @@ const OrderShow = ({ order, currentUser }) => {
     url: '/api/payments',
     method: 'post',
     body: {
+      // token:'',
       orderId: order.id,
     },
     onSuccess: () => Router.push('/orders'),
