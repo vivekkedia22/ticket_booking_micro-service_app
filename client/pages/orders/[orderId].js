@@ -5,6 +5,7 @@ import useRequest from "../../hooks/useRequest";
 
 const OrderShow = ({ order, currentUser }) => {
   const [timeLeft, setTimeLeft] = useState(0);
+  console.log("this is order", order);
   const { doRequest, errors } = useRequest({
     url: "/api/payments",
     method: "post",
