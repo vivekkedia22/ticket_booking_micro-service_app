@@ -10,7 +10,6 @@ const OrderShow = ({ order, currentUser }) => {
     url: "/api/payments",
     method: "post",
     body: {
-      // token:'',
       orderId: order.id,
       price: order.ticket.price,
     },
@@ -18,6 +17,7 @@ const OrderShow = ({ order, currentUser }) => {
   });
 
   useEffect(() => {
+    console.log("this is order", order);
     const findTimeLeft = () => {
       const msLeft = new Date(order.expiresAt) - new Date();
       setTimeLeft(Math.round(msLeft / 1000));
