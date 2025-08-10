@@ -47,6 +47,7 @@ spec:
                 port:
                   number: 3000
 
+
 ---
 
 # Service Resource (with proxy protocol enabled annotation)
