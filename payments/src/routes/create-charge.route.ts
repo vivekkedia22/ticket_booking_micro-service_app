@@ -23,6 +23,7 @@ router.post(
   [body("token").not().isEmpty(), body("orderId").not().isEmpty()],
   validateRequest,
   async (req: Request, res: Response) => {
+    console.log("Payments started");
     const { token, orderId, price } = req.body;
     const userId = req.currentUser!.id;
     const order = await Order.findById(orderId);
@@ -39,24 +40,29 @@ router.post(
       throw new BadRequestError(400, "Order price does not match");
     }
 
-    const charge = await stripe.charges.create({
-      currency: "usd",
-      amount: order.price * 100,
-      source: token,
-    });
-    const payment = Payment.build({ orderId: orderId, stripeId: charge.id });
-    await payment.save();
-    const publisher = new PaymentCreatedPublisher(
-      natsWrapper.client,
-      natsWrapper.jetStreamManager,
-      "PAYMENTS"
-    );
-    publisher.publishData({
-      id: payment.id,
-      orderId: payment.orderId,
-      stripeId: payment.stripeId,
-    });
-    res.status(201).send({ id: payment.id });
+    try {
+      const charge = await stripe.charges.create({
+        currency: "usd",
+        amount: order.price * 100,
+        source: token,
+      });
+      const payment = Payment.build({ orderId: orderId, stripeId: charge.id });
+      await payment.save();
+      const publisher = new PaymentCreatedPublisher(
+        natsWrapper.client,
+        natsWrapper.jetStreamManager,
+        "PAYMENTS"
+      );
+      publisher.publishData({
+        id: payment.id,
+        orderId: payment.orderId,
+        stripeId: payment.stripeId,
+      });
+      res.status(201).send({ id: payment.id });
+    } catch (error) {
+      console.log("this is stripe error", error);
+      throw new BadRequestError(400, "Invalid token");
+    }
   }
 );
 export { router as createChargeRouter };
