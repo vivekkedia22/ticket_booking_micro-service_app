@@ -1,7 +1,7 @@
 module.exports = {
   // allowedDevOrigins:["tickets.dev"],
   experimental: {
-    allowedDevOrigins: ["http://tickets.dev"],
+    allowedDevOrigins: ["http://www.vivekdevs.site"],
   },
   webpack: (config) => {
     config.watchOptions.poll = 300;
