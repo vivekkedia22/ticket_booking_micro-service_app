@@ -65,5 +65,5 @@ const start = async () => {
 };
 start();
 app.listen(3002, () => {
-  console.log(`   Orders Service is running on port 3002  ⚙️ 💻️`);
+  console.log(`   Orders Service is running on port 3002!  ⚙️ 💻️`);
 });

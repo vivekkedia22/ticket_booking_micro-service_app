@@ -58,5 +58,5 @@ const start = async () => {
 start();
 
 app.listen(3003, () => {
-  console.log(`Payments service is running on port 3003`);
+  console.log(`Payments service is running on port 3003!`);
 });

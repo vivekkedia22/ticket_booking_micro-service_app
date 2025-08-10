@@ -37,7 +37,7 @@ const start = async () => {
     await orderCreatedListener.subsribe();
     orderCreatedListener.listen();
   } catch (error) {
-    console.log("Error connecting to the NATS server", error);
+    console.log("Error connecting to the NATS server!", error);
   }
 };
 start();
