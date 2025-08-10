@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
-import StripeCheckout from 'react-stripe-checkout';
-import Router from 'next/router';
-import useRequest from '../../hooks/useRequest';
+import { useEffect, useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
+import Router from "next/router";
+import useRequest from "../../hooks/useRequest";
 
 const OrderShow = ({ order, currentUser }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const { doRequest, errors } = useRequest({
-    url: '/api/payments',
-    method: 'post',
+    url: "/api/payments",
+    method: "post",
     body: {
       // token:'',
       orderId: order.id,
+      price: order.ticket.price,
     },
-    onSuccess: () => Router.push('/orders'),
+    onSuccess: () => Router.push("/orders"),
   });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const OrderShow = ({ order, currentUser }) => {
       clearInterval(timerId);
     };
   }, [order]);
- 
+
   if (timeLeft < 0) {
     return <div>Order Expired</div>;
   }
