@@ -17,7 +17,7 @@ spec:
   rules:
     # The host section defines the host name that the ingress controller will respond to
     # In this case, we are using the host name "tickets.backend.dev"
-    - host: tickets.dev
+    - host: www.vivekdevs.site
       # The http section defines the http routing rules
       http:
         # The paths section defines the paths that the ingress controller will route traffic to
